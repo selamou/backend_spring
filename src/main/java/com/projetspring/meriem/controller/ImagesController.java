@@ -2,7 +2,7 @@ package com.projetspring.meriem.controller;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
-
+import java.nio.file.Path;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,13 +26,20 @@ public class ImagesController {
     public byte[] getPhoto(@PathVariable("id") Long id) throws Exception{
     	
         Product p=productRepository.findById(id).get();
-        return Files.readAllBytes(Paths.get(System.getProperty("user.home")+"/SpringAngAssets/products/"+p.getImgURL()));
+       
+        String pathStr = "C:/Users/pc/Desktop/frontend/assets/b/";
+        Path path = Paths.get(pathStr);
+        System.out.println(System.getProperty("user.home")+"/SpringAngAssets/products/"+p.getImgURL());
+        return Files.readAllBytes(Paths.get(path+p.getImgURL()));
     }
     @PostMapping(path = "/uploadPhoto/{id}")
     public void uploadPhoto(MultipartFile file, @PathVariable Long id) throws Exception{
        Product p=productRepository.findById(id).get();
        p.setImgURL(file.getOriginalFilename());
-       Files.write(Paths.get(System.getProperty("user.home")+"/SpringAngAssets/products/"+p.getImgURL()),file.getBytes());
+       
+       String pathStr = "C:/Users/pc/Desktop/frontend/assets/b/";
+       Path path = Paths.get(pathStr);
+       Files.write(Paths.get(path+p.getImgURL()),file.getBytes());
        productRepository.save(p);
     }
 }

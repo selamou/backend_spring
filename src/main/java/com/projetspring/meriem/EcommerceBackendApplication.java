@@ -24,7 +24,7 @@ public class EcommerceBackendApplication implements CommandLineRunner{
 	
 	public static void main(String[] args) {
 		SpringApplication.run(EcommerceBackendApplication.class, args);
-		Category c = new Category();
+		
 	
 	}
 
